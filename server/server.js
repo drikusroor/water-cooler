@@ -1,4 +1,5 @@
 const WebSocket = require("ws");
+const lowestUnusedNumber = require("./helpers/lowest-number");
 
 const port = process.env.PORT || 9001;
 const wss = new WebSocket.Server({ port: port });
@@ -19,7 +20,13 @@ wss.on("connection", (ws) => {
     const data = JSON.parse(message);
 
     if (data.type === messageTypes.REQUEST_ID) {
-      const playerId = gameState.length + 1;
+      const playerId =
+        gameState.length > 0
+          ? lowestUnusedNumber(
+              gameState.map((player) => player.id),
+              1
+            )
+          : 1;
       ws.send(
         JSON.stringify({ type: messageTypes.ASSIGN_ID, payload: playerId })
       );

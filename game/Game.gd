@@ -1,7 +1,8 @@
 extends Node2D
 
 var ws = WebSocketClient.new()
-var URL = "ws://127.0.0.1:9001/"
+#var URL = "ws://127.0.0.1:9001/"
+var URL = "ws://water-cooler-game.herokuapp.com/"
 var enemy = preload("res://Enemy.tscn")
 
 var messageTypes = {
@@ -38,7 +39,6 @@ func _connected():
 func _on_data():
 	var data = JSON.parse(ws.get_peer(1).get_packet().get_string_from_utf8()).result
 	
-	
 	if (player_data["id"] < 1 and data.type == messageTypes.ASSIGN_ID):
 		print("Assigned ID is ", data.payload)
 		player_data["id"] = data.payload
@@ -55,11 +55,9 @@ func _on_data():
 
 func _process(delta):
 	if player_data["id"] < 1:
-		print ('lol')
 		var action = { 'type': messageTypes.REQUEST_ID }
 		ws.get_peer(1).put_packet(JSON.print(action).to_utf8())
 		ws.poll()
-		print ('snol')
 	
 	if player_data["id"] > 0:
 		player_data["x"] = $Player.position.x
