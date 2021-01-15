@@ -1,8 +1,9 @@
 const WebSocket = require("ws");
 const lowestUnusedNumber = require("./helpers/lowest-number");
 
-const timeout = process.env.TIMEOUT || 10000;
 const port = process.env.PORT || 9001;
+const timeout = process.env.TIMEOUT || 10000;
+const cleanupAfterTimeout = process.env.CLEANUP_AFTER_TIMEOUT;
 const wss = new WebSocket.Server({ port });
 
 const messageTypes = {
@@ -87,7 +88,9 @@ const handleConnection = (ws) => {
   ws.on("message", handleMessage(ws));
   ws.on("close", handleCloseConnection(ws));
 
-  setInterval(handleTimeout, 2500);
+  if (cleanupAfterTimeout) {
+    setInterval(handleTimeout, 2500);
+  }
 };
 
 wss.on("connection", handleConnection);
