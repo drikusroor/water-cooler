@@ -1,6 +1,6 @@
 const WebSocket = require("ws");
 
-const port = 9001;
+const port = process.env.PORT || 9001;
 const wss = new WebSocket.Server({ port: port });
 
 const messageTypes = {
