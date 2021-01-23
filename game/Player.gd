@@ -3,6 +3,14 @@ extends KinematicBody2D
 export (int) var speed = 200
 export (int) var id = 0
 
+var connection_id = null
+var is_player = false
+var prev_pos = null
+
+func configure(connection_id, is_player):
+	id = connection_id
+	is_player = true
+
 var velocity = Vector2()
 
 func get_input():
@@ -20,3 +28,10 @@ func get_input():
 func _physics_process(delta):
 	get_input()
 	velocity = move_and_slide(velocity)
+	
+	var curr_pos = global_position
+	if curr_pos != prev_pos:
+		Game.ActionUpdatePlayer({ "position": curr_pos })
+		prev_pos = curr_pos
+	
+	
