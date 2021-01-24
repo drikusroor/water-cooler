@@ -3,6 +3,7 @@ extends KinematicBody2D
 export (int) var speed = 200
 
 onready var Game = get_node("/root/Game")
+onready var Name = get_node("Name")
 
 var id = null
 var is_player = false
@@ -11,6 +12,7 @@ var prev_pos = null
 func configure(payload):
 	id = payload.id
 	is_player = payload.id == Game.connection_id
+	Name.set_name(payload.name)
 	if is_player:
 		Game._dispatch_action("PLAYER_UPDATE", { "id": id, "pos": [position[0], position[1]] })
 
