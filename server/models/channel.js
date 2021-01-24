@@ -7,14 +7,33 @@ export class Channel {
     this.players = [];
   }
 
-  joinChannel(ws) {
-    ws.channel = this;
-    ws.state = {
-      ...ws.state,
-      id: generateGuid(),
+  join(ws) {
+    ws.state.channel = this;
+    ws.state.data = {
+      ...ws.state.data,
     };
 
     this.players.push(ws);
-    console.log("%s joined %s", ws.state.id, this.name);
+    console.log(
+      "%s joined %s. %s players.",
+      ws.state.name,
+      this.name,
+      this.players.length
+    );
+  }
+
+  leave(ws) {
+    this.players = this.players.filter((player) => player !== ws);
+    console.log(
+      "%s left %s. %s players",
+      ws.state.name,
+      this.name,
+      this.players.length
+    );
+    return this.players;
+  }
+
+  getPlayerStates() {
+    return this.players.map((player) => player.state.get());
   }
 }

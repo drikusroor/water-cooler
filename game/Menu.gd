@@ -11,7 +11,10 @@ func _ready():
 func _input(event):
 	if Input.is_action_just_pressed("toggle_menu"):
 		if Game.in_game:
-			MenuPanelNode.visible = !MenuPanelNode.visible
+			_toggle()
+
+func _toggle():
+	MenuPanelNode.visible = !MenuPanelNode.visible
 
 func _on_Button_pressed():
 #	ws.disconnect_from_host(1000, str(player_data["id"]))
@@ -19,4 +22,4 @@ func _on_Button_pressed():
 
 func _on_JoinGame_pressed():
 	var channel = ChannelInput.text
-	Game._dispatch_action("JOIN_CHANNEL", channel)
+	Game._dispatch_action("CHANNEL_JOIN", channel)
