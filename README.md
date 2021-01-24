@@ -4,6 +4,8 @@ An ongoing project used to teach myself multiplayer game development using web s
 
 Can be played at http://projects.kokokoding.nl/water-cooler/
 
+![alt text](screenshot.png "Screenshot of water-cooler")
+
 ## Develop
 
 ### Client
@@ -19,9 +21,11 @@ But perhaps it also works on different versions of Godot.
 ### Server
 
 #### Prequisites
+
 - Node.js v15.4.0
 
 #### Install dependencies
+
 ```sh
 npm i
 ```
@@ -35,6 +39,7 @@ npm run dev
 ```
 
 Production server:
+
 ```sh
 npm start
 ```
