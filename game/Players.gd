@@ -17,6 +17,10 @@ func player_update(payload):
 			if payload.has('pos'):
 				var pos = payload.pos
 				player.position = Vector2(pos[0], pos[1])
+				
+				if payload.has('name'):
+					player.Name.set_name(payload.name)
+				
 
 func player_remove(id):
 	for player in get_children():

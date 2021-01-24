@@ -34,6 +34,6 @@ export class Channel {
   }
 
   getPlayerStates() {
-    return this.players.map((player) => player.state.get());
+    return this.players.map((player) => player.state.getFull());
   }
 }
