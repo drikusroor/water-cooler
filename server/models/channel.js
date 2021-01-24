@@ -1,5 +1,3 @@
-import { generateGuid } from "../helpers/guid.js";
-
 export class Channel {
   constructor(channelCollection, name) {
     this.channelCollection = channelCollection;

@@ -14,7 +14,7 @@ const channelCollection = new ChannelCollection();
 wss.on("connection", function connection(ws) {
   console.log("connected");
 
-  let playerId = generateGuid(5);
+  let playerId = generateGuid(6);
 
   // regenerate player id if it already exists
   while (
