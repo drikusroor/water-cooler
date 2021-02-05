@@ -1,8 +1,8 @@
 extends Node
 
 onready var Game = get_node("/root/Game")
-onready var MenuPanelNode = get_node("Panel")
-onready var ChannelInput = get_node("Panel/ChannelInput")
+onready var MenuPanelNode = get_node("MenuPanel")
+onready var ChannelInput = get_node("MenuPanel/ChannelInput")
 
 # Called when the node enters the scene tree for the first time.
 func _ready():

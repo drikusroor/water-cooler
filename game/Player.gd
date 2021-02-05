@@ -1,18 +1,22 @@
 extends KinematicBody2D
 
 export (int) var speed = 200
+export (int) var max_hp = 20
 
 onready var Game = get_node("/root/Game")
+onready var HUD = get_node("/root/Game/HUD")
 onready var Name = get_node("Name")
 
 var id = null
 var is_player = false
 var prev_pos = null
+var hp = max_hp
 
 func configure(payload):
 	id = payload.id
 	is_player = payload.id == Game.connection_id
 	Name.set_name(payload.name)
+	HUD.update_hp(hp, max_hp)
 	if is_player:
 		Game._dispatch_action("PLAYER_UPDATE", { "id": id, "pos": [position[0], position[1]] })
 

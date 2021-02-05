@@ -1,10 +1,12 @@
-[gd_scene load_steps=7 format=2]
+[gd_scene load_steps=9 format=2]
 
 [ext_resource path="res://Game.gd" type="Script" id=1]
 [ext_resource path="res://Players.gd" type="Script" id=2]
 [ext_resource path="res://Assets/Textures/grass_k.jpg" type="Texture" id=3]
 [ext_resource path="res://Assets/Textures/ainab.PNG" type="Texture" id=4]
 [ext_resource path="res://Menu.gd" type="Script" id=5]
+[ext_resource path="res://HUD.gd" type="Script" id=6]
+[ext_resource path="res://HP.gd" type="Script" id=7]
 
 [sub_resource type="TileSet" id=1]
 0/name = "grass_k.jpg 0"
@@ -40,7 +42,7 @@ script = ExtResource( 2 )
 [node name="Menu" type="Node" parent="."]
 script = ExtResource( 5 )
 
-[node name="Panel" type="Panel" parent="Menu"]
+[node name="MenuPanel" type="Panel" parent="Menu"]
 anchor_right = 1.0
 anchor_bottom = 1.0
 margin_left = 32.0
@@ -51,7 +53,7 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="QuitButton" type="Button" parent="Menu/Panel"]
+[node name="QuitButton" type="Button" parent="Menu/MenuPanel"]
 anchor_left = 0.5
 anchor_top = 1.0
 anchor_right = 0.5
@@ -66,7 +68,7 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="JoinGame" type="Button" parent="Menu/Panel"]
+[node name="JoinGame" type="Button" parent="Menu/MenuPanel"]
 anchor_left = 0.5
 anchor_top = 1.0
 anchor_right = 0.5
@@ -81,7 +83,7 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="Disconnect" type="Button" parent="Menu/Panel"]
+[node name="Disconnect" type="Button" parent="Menu/MenuPanel"]
 anchor_left = 0.5
 anchor_top = 1.0
 anchor_right = 0.5
@@ -97,7 +99,7 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="ChannelInput" type="TextEdit" parent="Menu/Panel"]
+[node name="ChannelInput" type="TextEdit" parent="Menu/MenuPanel"]
 anchor_left = 0.5
 anchor_top = 1.0
 anchor_right = 0.5
@@ -110,8 +112,35 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="ainab" type="Sprite" parent="Menu/Panel"]
+[node name="ainab" type="Sprite" parent="Menu/MenuPanel"]
 position = Vector2( 481.228, 129.931 )
 texture = ExtResource( 4 )
-[connection signal="pressed" from="Menu/Panel/QuitButton" to="Menu" method="_on_Button_pressed"]
-[connection signal="pressed" from="Menu/Panel/JoinGame" to="Menu" method="_on_JoinGame_pressed"]
+
+[node name="HUD" type="Node" parent="."]
+script = ExtResource( 6 )
+
+[node name="CanvasLayer" type="CanvasLayer" parent="HUD"]
+follow_viewport_enable = true
+
+[node name="Control" type="Control" parent="HUD/CanvasLayer"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_left = 24.0
+margin_top = 24.0
+margin_right = -744.0
+margin_bottom = -512.0
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="HP" type="RichTextLabel" parent="HUD/CanvasLayer/Control"]
+visible = false
+margin_right = 128.0
+margin_bottom = 64.0
+text = "HP: 0/0"
+script = ExtResource( 7 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+[connection signal="pressed" from="Menu/MenuPanel/QuitButton" to="Menu" method="_on_Button_pressed"]
+[connection signal="pressed" from="Menu/MenuPanel/JoinGame" to="Menu" method="_on_JoinGame_pressed"]
